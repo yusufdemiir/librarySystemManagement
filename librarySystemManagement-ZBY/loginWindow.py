@@ -13,18 +13,11 @@ class login_Window(QMainWindow):
         self.enterButton = QtWidgets.QPushButton(self.centralwidget)
         self.enterButton.setGeometry(QtCore.QRect(470, 490, 221, 61))
         self.enterButton.setObjectName("enterButton")
-        
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 700, 721, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setUnderline(True)
-        font.setWeight(75)
-        font.setStrikeOut(False)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
+        self.enterButton.setFont(font)
+        
+        
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(380, 160, 501, 111))
         self.widget.setObjectName("widget")
@@ -38,6 +31,7 @@ class login_Window(QMainWindow):
         self.userRadioButton.setFont(font)
         self.userRadioButton.setObjectName("userRadioButton")
         self.gridLayout.addWidget(self.userRadioButton, 0, 0, 1, 1)
+        self.userRadioButton.setChecked(True)
         
         self.adminRadioButton = QtWidgets.QRadioButton(self.widget)
         font = QtGui.QFont()
@@ -87,45 +81,63 @@ class login_Window(QMainWindow):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-        self.enterButton.clicked.connect(self.clickHandler)
+        self.enterButton.clicked.connect(self.enterButtonClickHandler)
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
         
             
-    def clickHandler(self):
-        print('Clicked!')
+    def enterButtonClickHandler(self):
+        print('Giriş Butonu Tıklandı!')
         entered_id = self.idLine.text()
         entered_password = self.passwordLine.text()
-        if entered_id.strip() == "admin" and entered_password.strip() == "password":
-            print('Giriş Başarili!!')
-            self.successful_login()
+        
+        if self.adminRadioButton.isChecked():
+            if entered_id.strip() == "admin" and entered_password.strip() == "password":
+                print('Yönetici Girişi Başarılı!!')
+                self.successful_admin_login()
+            else:
+                print('Yönetici Girişi Başarısız. Yanlış ID veya Şifre.')
+                self.wrong_admin_login()
         else:
-            print('Yanliş ID veya Şifre')
-            self.wrong_login()
-    
+            if entered_id.strip() == "admin" and entered_password.strip() == "password":
+                print('Kullanıcı Girişi Başarılı!!')
+                self.successful_user_login()
+            else:
+                print('Kullanıcı Girişi Başarısız. Yanlış ID veya Şifre.')
+                self.wrong_user_login()
+                
     def userButtonHandler(self):
         self.idLabel.setText("Ziyaretçi ID:")
     def adminButtonHandler(self):
         self.idLabel.setText("Yönetici ID:")
         
-    def successful_login(self):
-        print('Giriş başarili, Ana ekrana geçildi!!')
+    def successful_admin_login(self):
+        print('Yönetici Girişi başarılı, Ana ekrana geçildi!!')
         self.startMainWindow = main_Window()
         self.startMainWindow.show()
         self.close()
-    def wrong_login(self):
+    def wrong_admin_login(self):
         msg = QMessageBox()
-        msg.setWindowTitle("Giriş Başarisiz!")
+        msg.setWindowTitle("Başarısız Giriş!")
         msg.setText("ID veya Şifre kismini yanliş girdiniz. Lütfen yeniden deneyiniz.")
         msg.setIcon(QMessageBox.Critical)
         x = msg.exec_()
-    
+    def successful_user_login(self):
+        print('Kullanıcı Girişi başarılı, Ana ekrana geçildi!!')
+        self.startMainWindow = main_Window()
+        self.startMainWindow.show()
+        self.close()
+    def wrong_user_login(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Başarısız Giriş!")
+        msg.setText("ID veya Şifre kısmını yanlış girdiniz. Lütfen yeniden deneyiniz.")
+        msg.setIcon(QMessageBox.Critical)
+        x = msg.exec_()
         
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi"))
         self.enterButton.setText(_translate("MainWindow", "Giriş"))
-        self.label.setText(_translate("MainWindow", "Yeni kullanici iseniz lütfen bir yönetici ile iletişime geçin."))
         self.userRadioButton.setText(_translate("MainWindow", "Ziyaretçi"))
         self.adminRadioButton.setText(_translate("MainWindow", "Yönetici"))
         self.idLabel.setText(_translate("MainWindow", "Ziyaretçi ID:"))

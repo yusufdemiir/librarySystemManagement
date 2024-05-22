@@ -10,23 +10,50 @@ class main_Window(QMainWindow):
         self.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+        
+        
+        #Kitaplar Frame
+        self.booksFrame = QtWidgets.QFrame(self.centralwidget)
+        self.booksFrame.setEnabled(True)
+        self.booksFrame.setGeometry(QtCore.QRect(180, 20, 591, 511))
+        self.booksFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.booksFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.booksFrame.setObjectName("booksFrame")
+        self.tableView = QtWidgets.QTableView(self.booksFrame)
+        self.tableView.setGeometry(QtCore.QRect(20, 80, 561, 351))
+        self.tableView.setObjectName("tableView")
+        self.pushButton = QtWidgets.QPushButton(self.booksFrame)
+        self.pushButton.setGeometry(QtCore.QRect(470, 450, 111, 31))
+        self.pushButton.setObjectName("pushButton")
+        self.widget = QtWidgets.QWidget(self.booksFrame)
+        self.widget.setGeometry(QtCore.QRect(230, 10, 351, 87))
+        self.widget.setObjectName("widget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label = QtWidgets.QLabel(self.widget)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        self.lineEdit = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit.setObjectName("lineEdit")
+        self.horizontalLayout.addWidget(self.lineEdit)
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_2.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../../librarySystemManagement/librarySystemManagement-ZBY/pic/search-icon.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_2.setIcon(icon)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.booksFrame.hide()
+        
+        
+    
+    
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setGeometry(QtCore.QRect(150, 10, 21, 531))
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
-        self.tableView = QtWidgets.QTableView(self.centralwidget)
-        self.tableView.setGeometry(QtCore.QRect(190, 90, 561, 311))
-        self.tableView.setObjectName("tableView")
-        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(552, 50, 201, 22))
-        self.lineEdit.setObjectName("lineEdit")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(640, 420, 111, 31))
-        self.pushButton.setObjectName("pushButton")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(500, 50, 55, 16))
-        self.label.setObjectName("label")
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(10, 30, 141, 491))
         self.widget.setObjectName("widget")
@@ -61,20 +88,28 @@ class main_Window(QMainWindow):
         QtCore.QMetaObject.connectSlotsByName(self)
         
         self.menuBar4.clicked.connect(self.exitClick)
+        self.pushButton_5.clicked.connect(self.execClick)
+        self.menuBar1.clicked.connect(self.booksClick)
     
     def exitClick(self):
         from loginWindow import login_Window
         self.startLoginWindow = login_Window()
         self.startLoginWindow.show()
         self.close()
+    
+    def execClick(self):
+        QApplication.quit()
+    
+    def booksClick(self):
+        self.booksFrame.show()
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "Kitabi Al"))
-        self.label.setText(_translate("MainWindow", "Arama:"))
+        self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi"))
+        self.pushButton.setText(_translate("MainWindow", "Kitabı Al"))
+        
         self.menuBar1.setText(_translate("MainWindow", "Kitaplar"))
-        self.menuBar2.setText(_translate("MainWindow", "Kitaplarim"))
+        self.menuBar2.setText(_translate("MainWindow", "Kitaplarım"))
         self.menuBar3.setText(_translate("MainWindow", "Profil"))
-        self.menuBar4.setText(_translate("MainWindow", "çikiş Yap"))
-        self.pushButton_5.setText(_translate("MainWindow", "Uygulamayi Kapat"))
+        self.menuBar4.setText(_translate("MainWindow", "Çıkış Yap"))
+        self.pushButton_5.setText(_translate("MainWindow", "Uygulamayı Kapat"))

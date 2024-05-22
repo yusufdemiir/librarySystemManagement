@@ -1,9 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from mainWindow import main_Window
+from database import Database as db
 class login_Window(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.db_connection = None
+
         self.setObjectName("Giriş Ekrani")
         self.resize(1200, 800)
         
@@ -90,37 +93,51 @@ class login_Window(QMainWindow):
         self.enterButton.clicked.connect(self.clickHandler)
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
-        
-            
+
     def clickHandler(self):
         print('Clicked!')
         entered_id = self.idLine.text()
         entered_password = self.passwordLine.text()
-        if entered_id.strip() == "admin" and entered_password.strip() == "password":
+        db_connect = db("localhost", "root", "123456", "zby_lms_db")
+        self.db_connection = db_connect.create_connection()
+        if entered_id.strip() == "admin" and entered_password.strip() == "password" and self.db_connection:
             print('Giriş Başarili!!')
             self.successful_login()
-        else:
-            print('Yanliş ID veya Şifre')
-            self.wrong_login()
+        elif entered_id.strip() != "admin" and self.db_connection:
+            print('Yanliş ID')
+            self.wrong_login(1)
+        elif (entered_id.strip() == "admin" and entered_password.strip() != "password"
+              and self.db_connection):
+            print('Yanliş Şifre')
+            self.wrong_login(2)
+        elif not self.db_connection:
+            print('Database hatasi')
+            self.wrong_login(3)
     
     def userButtonHandler(self):
         self.idLabel.setText("Ziyaretçi ID:")
+
     def adminButtonHandler(self):
         self.idLabel.setText("Yönetici ID:")
         
     def successful_login(self):
         print('Giriş başarili, Ana ekrana geçildi!!')
-        self.startMainWindow = main_Window()
+        self.startMainWindow = main_Window(self.db_connection)
         self.startMainWindow.show()
         self.close()
-    def wrong_login(self):
+
+    def wrong_login(self, err_num):
         msg = QMessageBox()
         msg.setWindowTitle("Giriş Başarisiz!")
-        msg.setText("ID veya Şifre kismini yanliş girdiniz. Lütfen yeniden deneyiniz.")
+        if err_num == 1:
+            msg.setText("ID kismini yanliş girdiniz. Lütfen yeniden deneyiniz.")
+        elif err_num == 2:
+            msg.setText("Şifre kismini yanliş girdiniz. Lütfen yeniden deneyiniz.")
+        elif err_num == 3:
+            msg.setText("Veri tabanina ulaşilamiyor. Biraz sonra tekrar deneyiniz.")
         msg.setIcon(QMessageBox.Critical)
         x = msg.exec_()
-    
-        
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))

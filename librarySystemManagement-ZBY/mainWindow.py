@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMainWindow,QApplication
+from PyQt5.QtGui import QIcon, QPixmap
 
 class main_Window(QMainWindow):
     def __init__(self):
@@ -22,28 +23,31 @@ class main_Window(QMainWindow):
         self.tableView = QtWidgets.QTableView(self.booksFrame)
         self.tableView.setGeometry(QtCore.QRect(20, 80, 561, 351))
         self.tableView.setObjectName("tableView")
-        self.pushButton = QtWidgets.QPushButton(self.booksFrame)
-        self.pushButton.setGeometry(QtCore.QRect(470, 450, 111, 31))
-        self.pushButton.setObjectName("pushButton")
+        self.takeBookButton = QtWidgets.QPushButton(self.booksFrame)
+        self.takeBookButton.setGeometry(QtCore.QRect(470, 450, 111, 31))
+        self.takeBookButton.setObjectName("takeBookButton")
         self.widget = QtWidgets.QWidget(self.booksFrame)
         self.widget.setGeometry(QtCore.QRect(230, 10, 351, 87))
         self.widget.setObjectName("widget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label = QtWidgets.QLabel(self.widget)
-        self.label.setObjectName("label")
-        self.horizontalLayout.addWidget(self.label)
+        self.searchLabel = QtWidgets.QLabel(self.widget)
+        self.searchLabel.setObjectName("searchLabel")
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.searchLabel.setFont(font)
+        self.horizontalLayout.addWidget(self.searchLabel)
         self.lineEdit = QtWidgets.QLineEdit(self.widget)
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout.addWidget(self.lineEdit)
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
-        self.pushButton_2.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("search-icon.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_2.setIcon(icon)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.searchButton = QtWidgets.QPushButton(self.widget)
+        self.searchButton.setText("")
+        self.searchIcon = QPixmap('search-icon.jpg')
+        self.searchButton.setIcon(QIcon(self.searchIcon))
+        self.searchButton.setIconSize()
+        self.searchButton.setObjectName("searchButton")
+        self.horizontalLayout.addWidget(self.searchButton)
         self.booksFrame.hide()
         
         #Kitaplarım Frame
@@ -88,7 +92,6 @@ class main_Window(QMainWindow):
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
-
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
         
@@ -129,10 +132,10 @@ class main_Window(QMainWindow):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi"))
-        self.pushButton.setText(_translate("MainWindow", "Kitabı Al"))
-        
+        self.takeBookButton.setText(_translate("MainWindow", "Kitabı Al"))
         self.booksButton.setText(_translate("MainWindow", "Kitaplar"))
         self.myBooksButton.setText(_translate("MainWindow", "Kitaplarım"))
         self.profileButton.setText(_translate("MainWindow", "Profil"))
         self.logoutButton.setText(_translate("MainWindow", "Çıkış Yap"))
         self.exitButton.setText(_translate("MainWindow", "Uygulamayı Kapat"))
+        self.searchLabel.setText(_translate("MainWindow", "Arama: "))

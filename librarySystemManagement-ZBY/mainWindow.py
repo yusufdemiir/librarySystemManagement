@@ -45,7 +45,7 @@ class main_Window(QMainWindow):
         self.searchButton.setText("")
         self.searchIcon = QPixmap('search-icon.jpg')
         self.searchButton.setIcon(QIcon(self.searchIcon))
-        self.searchButton.setIconSize()
+        self.searchButton.setIconSize(self.searchIcon.size())
         self.searchButton.setObjectName("searchButton")
         self.horizontalLayout.addWidget(self.searchButton)
         self.booksFrame.hide()

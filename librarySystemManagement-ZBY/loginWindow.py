@@ -1,11 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from mainWindow import main_Window
-from database import Database as db
 class login_Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.db_connection = None
 
         self.setObjectName("Giriş Ekrani")
         self.resize(1200, 800)
@@ -88,7 +86,7 @@ class login_Window(QMainWindow):
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
         
-            
+        
     def enterButtonClickHandler(self):
         print('Clicked!')
         entered_id = self.idLine.text()

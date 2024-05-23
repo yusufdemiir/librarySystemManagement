@@ -1,15 +1,15 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow,QApplication
 
 class main_Window(QMainWindow):
-    def __init__(self, db_connection):
+    def __init__(self):
         super().__init__()
-        self.db_connection = db_connection
 
         self.setObjectName("MainWindow")
         self.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+        
         
         
         #Kitaplar Frame
@@ -40,11 +40,16 @@ class main_Window(QMainWindow):
         self.pushButton_2 = QtWidgets.QPushButton(self.widget)
         self.pushButton_2.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../../librarySystemManagement/librarySystemManagement-ZBY/pic/search-icon.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("search-icon.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_2.setIcon(icon)
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout.addWidget(self.pushButton_2)
         self.booksFrame.hide()
+        
+        #Kitaplarım Frame
+        
+        #Profil Frame
+        
         
         
     
@@ -60,21 +65,21 @@ class main_Window(QMainWindow):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.menuBar1 = QtWidgets.QPushButton(self.widget)
-        self.menuBar1.setObjectName("menuBar1")
-        self.verticalLayout.addWidget(self.menuBar1)
-        self.menuBar2 = QtWidgets.QPushButton(self.widget)
-        self.menuBar2.setObjectName("menuBar2")
-        self.verticalLayout.addWidget(self.menuBar2)
-        self.menuBar3 = QtWidgets.QPushButton(self.widget)
-        self.menuBar3.setObjectName("menuBar3")
-        self.verticalLayout.addWidget(self.menuBar3)
-        self.menuBar4 = QtWidgets.QPushButton(self.widget)
-        self.menuBar4.setObjectName("menuBar4")
-        self.verticalLayout.addWidget(self.menuBar4)
-        self.pushButton_5 = QtWidgets.QPushButton(self.widget)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.verticalLayout.addWidget(self.pushButton_5)
+        self.booksButton = QtWidgets.QPushButton(self.widget)
+        self.booksButton.setObjectName("booksButton")
+        self.verticalLayout.addWidget(self.booksButton)
+        self.myBooksButton = QtWidgets.QPushButton(self.widget)
+        self.myBooksButton.setObjectName("myBooksButton")
+        self.verticalLayout.addWidget(self.myBooksButton)
+        self.profileButton = QtWidgets.QPushButton(self.widget)
+        self.profileButton.setObjectName("profileButton")
+        self.verticalLayout.addWidget(self.profileButton)
+        self.logoutButton = QtWidgets.QPushButton(self.widget)
+        self.logoutButton.setObjectName("logoutButton")
+        self.verticalLayout.addWidget(self.logoutButton)
+        self.exitButton = QtWidgets.QPushButton(self.widget)
+        self.exitButton.setObjectName("exitButton")
+        self.verticalLayout.addWidget(self.exitButton)
         self.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
@@ -87,23 +92,47 @@ class main_Window(QMainWindow):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
         
-        self.menuBar4.clicked.connect(self.exitClick)
-        self.pushButton_5.clicked.connect(self.execClick)
-        self.menuBar1.clicked.connect(self.booksClick)
+        #Butonların Fonksiyonlar ile Bağlanması
+        self.booksButton.clicked.connect(self.booksClick)
+        self.myBooksButton.clicked.connect(self.myBooksClick)
+        self.profileButton.clicked.connect(self.profileClick)
+        self.logoutButton.clicked.connect(self.logoutClick)
+        self.exitButton.clicked.connect(QApplication.instance().quit)
     
-    def exitClick(self):
+    
+    
+    #Kitaplar butonu fonskiyonu:
+    def booksClick(self):
+        print('Kitaplar Butonuna Tıklandı.')
+        self.booksFrame.show()
+    
+    #Kitaplarım butonu fonksiyonu:
+    def myBooksClick(self):
+        print('Kitaplarım Butonuna Tıklandı.')
+    
+    #Profil butonu fonksiyonu:
+    def profileClick(self):
+        print('Profil Butonuna Tıklandı.')
+
+    #Çıkış yapma butonu fonksiyonu
+    def logoutClick(self):
+        print('Çıkış Butonuna Tıklandı.')
         from loginWindow import login_Window
         self.startLoginWindow = login_Window()
         self.startLoginWindow.show()
         self.close()
+        print('Giriş Ekranına Geçildi.')
 
+
+
+    #İsimlendirme Fonksiyonu
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi"))
         self.pushButton.setText(_translate("MainWindow", "Kitabı Al"))
         
-        self.menuBar1.setText(_translate("MainWindow", "Kitaplar"))
-        self.menuBar2.setText(_translate("MainWindow", "Kitaplarım"))
-        self.menuBar3.setText(_translate("MainWindow", "Profil"))
-        self.menuBar4.setText(_translate("MainWindow", "Çıkış Yap"))
-        self.pushButton_5.setText(_translate("MainWindow", "Uygulamayı Kapat"))
+        self.booksButton.setText(_translate("MainWindow", "Kitaplar"))
+        self.myBooksButton.setText(_translate("MainWindow", "Kitaplarım"))
+        self.profileButton.setText(_translate("MainWindow", "Profil"))
+        self.logoutButton.setText(_translate("MainWindow", "Çıkış Yap"))
+        self.exitButton.setText(_translate("MainWindow", "Uygulamayı Kapat"))

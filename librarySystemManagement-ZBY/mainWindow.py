@@ -1,11 +1,11 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget
-
+from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtWidgets import QMainWindow
 
 class main_Window(QMainWindow):
-    def __init__(self):
+    def __init__(self, db_connection):
         super().__init__()
+        self.db_connection = db_connection
+
         self.setObjectName("MainWindow")
         self.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(self)
@@ -96,12 +96,6 @@ class main_Window(QMainWindow):
         self.startLoginWindow = login_Window()
         self.startLoginWindow.show()
         self.close()
-    
-    def execClick(self):
-        QApplication.quit()
-    
-    def booksClick(self):
-        self.booksFrame.show()
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate

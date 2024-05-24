@@ -7,7 +7,9 @@ class login_Window(QMainWindow):
 
         self.setObjectName("Giriş Ekrani")
         self.resize(1200, 800)
-        
+        self.icon = QtGui.QIcon()
+        self.icon.addPixmap(QtGui.QPixmap('icons/logo.jpeg'))
+        self.setWindowIcon(self.icon)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         
@@ -118,7 +120,7 @@ class login_Window(QMainWindow):
         
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi"))
+        self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi - Giriş Sayfası"))
         self.enterButton.setText(_translate("MainWindow", "Giriş"))
         self.userRadioButton.setText(_translate("MainWindow", "Ziyaretçi"))
         self.adminRadioButton.setText(_translate("MainWindow", "Yönetici"))

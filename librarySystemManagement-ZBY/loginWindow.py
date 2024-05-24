@@ -88,7 +88,6 @@ class login_Window(QMainWindow):
         
         
     def enterButtonClickHandler(self):
-        print('Clicked!')
         entered_id = self.idLine.text()
         entered_password = self.passwordLine.text()
         if entered_id.strip() == "admin" and entered_password.strip() == "password":

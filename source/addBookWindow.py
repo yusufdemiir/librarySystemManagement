@@ -68,6 +68,12 @@ class add_Book_Window(QMainWindow):
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+        
+        self.addButton.clicked.connect(self.addClick)
+
+    #Ekleme butonu fonksiyonu
+    def addClick(self):
+        print('Ekleme Butonuna Tıklandı.')
 
     def retranslateUi(self, userAddWindow):
         _translate = QtCore.QCoreApplication.translate

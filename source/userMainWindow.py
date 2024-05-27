@@ -308,6 +308,8 @@ class user_Main_Window(QMainWindow):
         self.logoutButton.clicked.connect(self.logoutClick)
         self.profileEditButton.clicked.connect(self.profileEditClick)
         self.profileSaveButton.clicked.connect(self.profileSaveClick)
+        self.takeBookButton.clicked.connect(self.takeBookClick)
+        self.leaveBookButton.clicked.connect(self.leaveBookClick)
         self.exitButton.clicked.connect(QApplication.instance().quit)
     
     
@@ -361,7 +363,14 @@ class user_Main_Window(QMainWindow):
         self.phoneNoEditLine.setReadOnly(True)
         self.addressEdit.setReadOnly(True)
         self.checkLabel.show()
-
+    
+    #Kitap alma butonu fonksiyonu
+    def takeBookClick(self):
+        print('Kitap Alma Butonuna Tıklandı.')
+    
+    #Kitap bırakma butonu fonksiyonu
+    def leaveBookClick(self):
+        print('Kitap Bırakma Butonun Tıklandı.')
 
 
     #İsimlendirme Fonksiyonu

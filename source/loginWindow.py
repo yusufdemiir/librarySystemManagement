@@ -91,17 +91,17 @@ class login_Window(QMainWindow):
         
         
     def enterButtonClickHandler(self):
+        print('Giriş Butonuna Tıklandı.')
         entered_id = self.idLine.text()
         entered_password = self.passwordLine.text()
         if entered_id.strip() == "admin" and entered_password.strip() == "password":
-            print('Giriş Başarili!!')
             self.successful_login()
         else:
-            print('Yanliş ID veya Şifre')
+            print('Başarısız Giriş.')
             self.wrong_login()
     
     def userButtonHandler(self):
-        self.idLabel.setText("Ziyaretçi ID:")
+        self.idLabel.setText("Kullanıcı ID:")
 
     def adminButtonHandler(self):
         self.idLabel.setText("Yönetici ID:")
@@ -113,7 +113,7 @@ class login_Window(QMainWindow):
             self.startWindow.show()
             self.close()
         else:
-            print('Giriş başarili, Ana ekrana geçildi!!')
+            print('Kullanıcı Girişi Başarılı. Kullanıcı Ekranına Geçildi.')
             self.startWindow = user_Main_Window()
             self.startWindow.show()
             self.close()
@@ -121,9 +121,12 @@ class login_Window(QMainWindow):
         
     def wrong_login(self):
         msg = QMessageBox()
-        msg.setWindowTitle("Giriş Başarisiz!")
-        msg.setText("ID veya Şifre kismini yanliş girdiniz. Lütfen yeniden deneyiniz.")
+        msg.setWindowTitle("Giriş Başarısız!")
+        msg.setText("ID veya şifrenizi yanlış girdiniz. Lütfen tekrar deneyiniz.")
         msg.setIcon(QMessageBox.Critical)
+        self.icon = QtGui.QIcon()
+        self.icon.addPixmap(QtGui.QPixmap('icons/redXicon.png'))
+        msg.setWindowIcon(self.icon)
         x = msg.exec_()
     
         

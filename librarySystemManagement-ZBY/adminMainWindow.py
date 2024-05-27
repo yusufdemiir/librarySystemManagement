@@ -117,46 +117,49 @@ class admin_Main_Window(QMainWindow):
         self.userManagementFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.userManagementFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.userManagementFrame.setObjectName("userManagemenetFrame")
-        self.myBooksLabel = QtWidgets.QLabel(self.userManagementFrame)
-        self.myBooksLabel.setGeometry(QtCore.QRect(20, 0, 250, 100))
+        self.userManagementLabel = QtWidgets.QLabel(self.userManagementFrame)
+        self.userManagementLabel.setGeometry(QtCore.QRect(20, 0, 300, 100))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic")
         font.setPointSize(20)
         font.setBold(True)
         font.setItalic(False)
         font.setWeight(75)
-        self.myBooksLabel.setFont(font)
-        self.myBooksLabel.setObjectName("myBooksLable")
-        self.myBooksTable = QtWidgets.QTableWidget(self.userManagementFrame)
-        self.myBooksTable.setGeometry(QtCore.QRect(2, 75, 571, 379))
-        self.myBooksTable.setObjectName("myBooksTable")
+        self.userManagementLabel.setFont(font)
+        self.userManagementLabel.setObjectName("userManagementLabel")
+        self.userTable = QtWidgets.QTableWidget(self.userManagementFrame)
+        self.userTable.setGeometry(QtCore.QRect(2, 75, 571, 379))
+        self.userTable.setObjectName("userTable")
 
-        self.myBooksTable.setColumnCount(3)
-        self.myBooksTable.setRowCount(1)
+        self.userTable.setColumnCount(3)
+        self.userTable.setRowCount(1)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setVerticalHeaderItem(0, item)
+        self.userTable.setVerticalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setHorizontalHeaderItem(0, item)
+        self.userTable.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setHorizontalHeaderItem(1, item)
+        self.userTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setHorizontalHeaderItem(2, item)
+        self.userTable.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setItem(0, 0, item)
+        self.userTable.setItem(0, 0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setItem(0, 1, item)
+        self.userTable.setItem(0, 1, item)
         item = QtWidgets.QTableWidgetItem()
-        self.myBooksTable.setItem(0, 2, item)
-        self.myBooksTable.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.userTable.setItem(0, 2, item)
+        self.userTable.setEditTriggers(QTableWidget.NoEditTriggers)
         
-        self.leaveBookButton = QtWidgets.QPushButton(self.userManagementFrame)
-        self.leaveBookButton.setGeometry(QtCore.QRect(470, 470, 111, 31))
-        self.leaveBookButton.setObjectName("leaveBookButton")
+        self.addUserButton = QtWidgets.QPushButton(self.userManagementFrame)
+        self.addUserButton.setGeometry(QtCore.QRect(359, 470, 111, 31))
+        self.addUserButton.setObjectName("addUserButton")
+        self.deleteUserButton = QtWidgets.QPushButton(self.userManagementFrame)
+        self.deleteUserButton.setGeometry(QtCore.QRect(470, 470, 111, 31))
+        self.deleteUserButton.setObjectName('deleteUserButton')
         self.widget = QtWidgets.QWidget(self.userManagementFrame)
         self.widget.setGeometry(QtCore.QRect(230, 10, 351, 87))
         self.widget.setObjectName("widget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setContentsMargins(90, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.searchLabel2 = QtWidgets.QLabel(self.widget)
         self.searchLabel2.setObjectName("searchLabel2")
@@ -310,6 +313,10 @@ class admin_Main_Window(QMainWindow):
         self.logoutButton.clicked.connect(self.logoutClick)
         self.profileEditButton.clicked.connect(self.profileEditClick)
         self.profileSaveButton.clicked.connect(self.profileSaveClick)
+        self.addBookButton.clicked.connect(self.addBookClick)
+        self.deleteBookButton.clicked.connect(self.deleteBookClick)
+        self.addUserButton.clicked.connect(self.addUserClick)
+        self.deleteUserButton.clicked.connect(self.deleteUserClick)
         self.exitButton.clicked.connect(QApplication.instance().quit)
 
     
@@ -364,6 +371,22 @@ class admin_Main_Window(QMainWindow):
         self.phoneNoEditLine.setReadOnly(True)
         self.addressEdit.setReadOnly(True)
         self.checkLabel.show()
+        
+    #Kitap ekleme butonu fonksiyonu
+    def addBookClick(self):
+        print('Kitap Ekleme Butonuna Tıklandı')
+        
+    #Kitap silme butonu fonksiyonu
+    def deleteBookClick(self):
+        print('Kitap Silme Butonuna Tıklandı.')
+        
+    #Kullanıcı Ekleme butonu fonksiyonu
+    def addUserClick(self):
+        print('Kullanıcı Ekleme Butonuna Tıklandı')
+    
+    #Kullanıcı Silme butonu fonksiyonu
+    def deleteUserClick(self):
+        print('Kullanıcı Silme Butonuna Tıklandı')
 
 
 
@@ -387,9 +410,10 @@ class admin_Main_Window(QMainWindow):
         self.booksLabel.setText(_translate('MainWindow', 'Kayıtlı Kitaplar'))
         
         #Kullanıcı Yönetimi
-        self.leaveBookButton.setText(_translate("MainWindow", "Kitabı Bırak"))
+        self.addUserButton.setText(_translate("MainWindow", "Kullanıcı Ekle"))
+        self.deleteUserButton.setText(_translate('MainWindow', 'Kullanıcı Sil'))
         self.searchLabel2.setText(_translate("MainWindow", "Arama: "))
-        self.myBooksLabel.setText(_translate('MainWindow', 'Kitaplarım'))
+        self.userManagementLabel.setText(_translate('MainWindow', 'Kayıtlı Kullanıcılar'))
         
         item = self.booksTable.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
@@ -410,23 +434,23 @@ class admin_Main_Window(QMainWindow):
         self.booksTable.setSortingEnabled(__sortingEnabled)
         
 
-        item = self.myBooksTable.verticalHeaderItem(0)
+        item = self.userTable.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
-        item = self.myBooksTable.horizontalHeaderItem(0)
+        item = self.userTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "İsim"))
-        item = self.myBooksTable.horizontalHeaderItem(1)
+        item = self.userTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Yazar"))
-        item = self.myBooksTable.horizontalHeaderItem(2)
+        item = self.userTable.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Yayın Evi"))
-        __sortingEnabled = self.myBooksTable.isSortingEnabled()
-        self.myBooksTable.setSortingEnabled(False)
-        item = self.myBooksTable.item(0, 0)
+        __sortingEnabled = self.userTable.isSortingEnabled()
+        self.userTable.setSortingEnabled(False)
+        item = self.userTable.item(0, 0)
         item.setText(_translate("MainWindow", "Veronika Ölmek İstiyor"))
-        item = self.myBooksTable.item(0, 1)
+        item = self.userTable.item(0, 1)
         item.setText(_translate("MainWindow", "Paulo Coelho"))
-        item = self.myBooksTable.item(0, 2)
+        item = self.userTable.item(0, 2)
         item.setText(_translate("MainWindow", "Can Çağdaş"))
-        self.myBooksTable.setSortingEnabled(__sortingEnabled)
+        self.userTable.setSortingEnabled(__sortingEnabled)
         
         #Profil
         self.profileLabel.setText(_translate("MainWindow", "Profiliniz"))
@@ -439,8 +463,3 @@ class admin_Main_Window(QMainWindow):
         self.idLabel.setText(_translate("MainWindow", "ID :"))
         self.birthLabel.setText(_translate("MainWindow", "Doğum Tarihi:"))
         self.profileSaveButton.setText(_translate('MainWindow', 'Kaydet'))
-        
-app = QApplication([])
-start = admin_Main_Window()
-start.show()
-app.exec()

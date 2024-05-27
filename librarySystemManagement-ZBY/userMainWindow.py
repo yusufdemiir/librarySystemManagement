@@ -145,6 +145,8 @@ class user_Main_Window(QMainWindow):
         self.myBooksTable.setItem(0, 2, item)
         self.myBooksTable.setEditTriggers(QTableWidget.NoEditTriggers)
         
+        
+        
         self.leaveBookButton = QtWidgets.QPushButton(self.myBooksFrame)
         self.leaveBookButton.setGeometry(QtCore.QRect(470, 470, 111, 31))
         self.leaveBookButton.setObjectName("leaveBookButton")
@@ -307,7 +309,6 @@ class user_Main_Window(QMainWindow):
         self.profileEditButton.clicked.connect(self.profileEditClick)
         self.profileSaveButton.clicked.connect(self.profileSaveClick)
         self.exitButton.clicked.connect(QApplication.instance().quit)
-
     
     
     #Kitaplar butonu fonskiyonu:

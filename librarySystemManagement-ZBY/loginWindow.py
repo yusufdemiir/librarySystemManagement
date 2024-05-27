@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from userMainWindow import user_Main_Window
+from adminMainWindow import admin_Main_Window
 class login_Window(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -106,10 +107,22 @@ class login_Window(QMainWindow):
         self.idLabel.setText("Yönetici ID:")
         
     def successful_login(self):
-        print('Giriş başarili, Ana ekrana geçildi!!')
+        if self.adminRadioButton.isChecked():
+            print('Yönetici Girişi Başarılır. Yönetici Paneline Geçildi.')
+            self.startWindow = admin_Main_Window()
+            self.startWindow.show()
+            self.close()
+        else:
+            print('Giriş başarili, Ana ekrana geçildi!!')
+            self.startWindow = user_Main_Window()
+            self.startWindow.show()
+            self.close()
+        
+        
+        '''print('Giriş başarili, Ana ekrana geçildi!!')
         self.startMainWindow = user_Main_Window()
         self.startMainWindow.show()
-        self.close()
+        self.close()'''
     def wrong_login(self):
         msg = QMessageBox()
         msg.setWindowTitle("Giriş Başarisiz!")
@@ -122,7 +135,7 @@ class login_Window(QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi - Giriş Sayfası"))
         self.enterButton.setText(_translate("MainWindow", "Giriş"))
-        self.userRadioButton.setText(_translate("MainWindow", "Ziyaretçi"))
+        self.userRadioButton.setText(_translate("MainWindow", "Kullanıcı"))
         self.adminRadioButton.setText(_translate("MainWindow", "Yönetici"))
-        self.idLabel.setText(_translate("MainWindow", "Ziyaretçi ID:"))
+        self.idLabel.setText(_translate("MainWindow", "Kullanıcı ID:"))
         self.passwordLabel.setText(_translate("MainWindow", "Şifre:"))

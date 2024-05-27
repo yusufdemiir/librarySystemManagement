@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from mainWindow import main_Window
+from userMainWindow import user_Main_Window
 class login_Window(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -107,7 +107,7 @@ class login_Window(QMainWindow):
         
     def successful_login(self):
         print('Giriş başarili, Ana ekrana geçildi!!')
-        self.startMainWindow = main_Window()
+        self.startMainWindow = user_Main_Window()
         self.startMainWindow.show()
         self.close()
     def wrong_login(self):

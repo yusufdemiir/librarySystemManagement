@@ -375,6 +375,9 @@ class admin_Main_Window(QMainWindow):
     #Kitap ekleme butonu fonksiyonu
     def addBookClick(self):
         print('Kitap Ekleme Butonuna Tıklandı')
+        from addBookWindow import add_Book_Window
+        self.startAddBookWindow = add_Book_Window()
+        self.startAddBookWindow.show()
         
     #Kitap silme butonu fonksiyonu
     def deleteBookClick(self):
@@ -383,6 +386,9 @@ class admin_Main_Window(QMainWindow):
     #Kullanıcı Ekleme butonu fonksiyonu
     def addUserClick(self):
         print('Kullanıcı Ekleme Butonuna Tıklandı')
+        from addUserWindow import add_User_Window
+        self.startAddWindow = add_User_Window()
+        self.startAddWindow.show()
     
     #Kullanıcı Silme butonu fonksiyonu
     def deleteUserClick(self):

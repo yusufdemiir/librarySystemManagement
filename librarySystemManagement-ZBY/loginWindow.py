@@ -119,10 +119,6 @@ class login_Window(QMainWindow):
             self.close()
         
         
-        '''print('Giriş başarili, Ana ekrana geçildi!!')
-        self.startMainWindow = user_Main_Window()
-        self.startMainWindow.show()
-        self.close()'''
     def wrong_login(self):
         msg = QMessageBox()
         msg.setWindowTitle("Giriş Başarisiz!")

@@ -22,6 +22,14 @@ class login_Window(QMainWindow):
         self.enterButton.setFont(font)
         
         
+        self.showPasswordButton = QtWidgets.QPushButton(self.centralwidget)
+        self.showPasswordButton.setGeometry(QtCore.QRect(750, 425, 28, 28))
+        self.showPasswordButton.setObjectName("showPasswordButton")
+        font2 = QtGui.QFont()
+        font2.setPointSize(10)
+        self.showPasswordButton.setText("👁️")
+        self.showPasswordButton.setFont(font2)
+        
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(380, 160, 501, 111))
         self.widget.setObjectName("widget")
@@ -89,7 +97,13 @@ class login_Window(QMainWindow):
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
         
-        
+        def togglePasswordVisibility(self):
+  
+         if self.passwordLine.echoMode() == QtWidgets.QLineEdit.Password:
+           self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Normal)
+         else:
+           self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
+           
     def enterButtonClickHandler(self):
         print('Giriş Butonuna Tıklandı.')
         entered_id = self.idLine.text()

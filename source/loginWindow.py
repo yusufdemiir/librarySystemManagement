@@ -2,17 +2,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from userMainWindow import user_Main_Window
 from adminMainWindow import admin_Main_Window
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt
 class login_Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        
+
         self.setObjectName("Giriş Ekrani")
         self.resize(1200, 800)
         self.icon = QtGui.QIcon()
-        self.icon.addPixmap(QtGui.QPixmap('icons/logo2.jpeg'))
+        self.icon.addPixmap(QtGui.QPixmap('icons/logo.jpeg'))
         self.setWindowIcon(self.icon)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -24,16 +21,7 @@ class login_Window(QMainWindow):
         font.setPointSize(10)
         self.enterButton.setFont(font)
         
-        self.showPasswordButton = QtWidgets.QPushButton(self.centralwidget)
-        self.showPasswordButton.setGeometry(QtCore.QRect(750, 425, 28, 28))
-        self.showPasswordButton.setObjectName("showPasswordButton")
-        font2 = QtGui.QFont()
-        font2.setPointSize(10)
-        self.showPasswordButton.setText("👁️")
-        self.showPasswordButton.setFont(font2)
         
-       
-    
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(380, 160, 501, 111))
         self.widget.setObjectName("widget")
@@ -81,8 +69,8 @@ class login_Window(QMainWindow):
         self.verticalLayout.addWidget(self.passwordLabel)
         
         self.passwordLine = QtWidgets.QLineEdit(self.widget1)
-        self.passwordLine.setObjectName("passwordLine")
         self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwordLine.setObjectName("passwordLine")
         
         self.verticalLayout.addWidget(self.passwordLine)
         self.setCentralWidget(self.centralwidget)
@@ -100,35 +88,24 @@ class login_Window(QMainWindow):
         self.enterButton.clicked.connect(self.enterButtonClickHandler)
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
-        self.showPasswordButton.clicked.connect(self.togglePasswordVisibility)
         
-  
-            
+        
     def enterButtonClickHandler(self):
+        print('Giriş Butonuna Tıklandı.')
         entered_id = self.idLine.text()
         entered_password = self.passwordLine.text()
         if entered_id.strip() == "admin" and entered_password.strip() == "password":
-            print('Giriş Başarili!!')
             self.successful_login()
         else:
-            print('Yanliş ID veya Şifre')
+            print('Başarısız Giriş.')
             self.wrong_login()
-            
-    def togglePasswordVisibility(self):
-  
-        if self.passwordLine.echoMode() == QtWidgets.QLineEdit.Password:
-           self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Normal)
-        else:
-           self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
     
     def userButtonHandler(self):
-        self.idLabel.setText("Ziyaretçi ID:")
+        self.idLabel.setText("Kullanıcı ID:")
 
     def adminButtonHandler(self):
         self.idLabel.setText("Yönetici ID:")
         
-
-
     def successful_login(self):
         if self.adminRadioButton.isChecked():
             print('Yönetici Girişi Başarılır. Yönetici Paneline Geçildi.')
@@ -136,21 +113,20 @@ class login_Window(QMainWindow):
             self.startWindow.show()
             self.close()
         else:
-            print('Giriş başarili, Ana ekrana geçildi!!')
+            print('Kullanıcı Girişi Başarılı. Kullanıcı Ekranına Geçildi.')
             self.startWindow = user_Main_Window()
             self.startWindow.show()
             self.close()
         
         
-        '''print('Giriş başarili, Ana ekrana geçildi!!')
-        self.startMainWindow = user_Main_Window()
-        self.startMainWindow.show()
-        self.close()'''
     def wrong_login(self):
         msg = QMessageBox()
-        msg.setWindowTitle("Giriş Başarisiz!")
-        msg.setText("ID veya Şifre kismini yanliş girdiniz. Lütfen yeniden deneyiniz.")
+        msg.setWindowTitle("Giriş Başarısız!")
+        msg.setText("ID veya şifrenizi yanlış girdiniz. Lütfen tekrar deneyiniz.")
         msg.setIcon(QMessageBox.Critical)
+        self.icon = QtGui.QIcon()
+        self.icon.addPixmap(QtGui.QPixmap('icons/redXicon.png'))
+        msg.setWindowIcon(self.icon)
         x = msg.exec_()
     
         

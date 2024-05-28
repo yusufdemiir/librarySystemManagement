@@ -2,7 +2,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from userMainWindow import user_Main_Window
 from adminMainWindow import admin_Main_Window
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
 class login_Window(QMainWindow):
+    
     def __init__(self):
         super().__init__()
 
@@ -77,8 +80,8 @@ class login_Window(QMainWindow):
         self.verticalLayout.addWidget(self.passwordLabel)
         
         self.passwordLine = QtWidgets.QLineEdit(self.widget1)
-        self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
         self.passwordLine.setObjectName("passwordLine")
+        self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
         
         self.verticalLayout.addWidget(self.passwordLine)
         self.setCentralWidget(self.centralwidget)
@@ -96,14 +99,9 @@ class login_Window(QMainWindow):
         self.enterButton.clicked.connect(self.enterButtonClickHandler)
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
+        self.showPasswordButton.clicked.connect(self.togglePasswordVisibility)
         
-        def togglePasswordVisibility(self):
-  
-         if self.passwordLine.echoMode() == QtWidgets.QLineEdit.Password:
-           self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Normal)
-         else:
-           self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
-           
+        
     def enterButtonClickHandler(self):
         print('Giriş Butonuna Tıklandı.')
         entered_id = self.idLine.text()
@@ -113,6 +111,14 @@ class login_Window(QMainWindow):
         else:
             print('Başarısız Giriş.')
             self.wrong_login()
+            
+    def togglePasswordVisibility(self):
+  
+         if self.passwordLine.echoMode() == QtWidgets.QLineEdit.Password:
+            self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Normal)
+         else:
+            self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
+           
     
     def userButtonHandler(self):
         self.idLabel.setText("Kullanıcı ID:")

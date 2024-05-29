@@ -1,9 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtGui import QPixmap
 from userMainWindow import user_Main_Window
 from adminMainWindow import admin_Main_Window
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt
 class login_Window(QMainWindow):
     
     def __init__(self):
@@ -96,12 +95,13 @@ class login_Window(QMainWindow):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
+        #Butonların fonksiyonlar ile bağlanması
         self.enterButton.clicked.connect(self.enterButtonClickHandler)
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
         self.showPasswordButton.clicked.connect(self.togglePasswordVisibility)
         
-        
+    #Giriş butonu fonksiyonu
     def enterButtonClickHandler(self):
         print('Giriş Butonuna Tıklandı.')
         entered_id = self.idLine.text()
@@ -112,20 +112,22 @@ class login_Window(QMainWindow):
             print('Başarısız Giriş.')
             self.wrong_login()
             
+    #Şifre göster butonu fonksiyonu
     def togglePasswordVisibility(self):
-  
-         if self.passwordLine.echoMode() == QtWidgets.QLineEdit.Password:
+        if self.passwordLine.echoMode() == QtWidgets.QLineEdit.Password:
             self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Normal)
-         else:
+        else:
             self.passwordLine.setEchoMode(QtWidgets.QLineEdit.Password)
            
-    
+    #Kullanıcı butonu fonksiyonu
     def userButtonHandler(self):
         self.idLabel.setText("Kullanıcı ID:")
 
+    #Yönetici butonu fonksiyonu
     def adminButtonHandler(self):
         self.idLabel.setText("Yönetici ID:")
         
+    #Başarılı giriş fonksiyonu
     def successful_login(self):
         if self.adminRadioButton.isChecked():
             print('Yönetici Girişi Başarılır. Yönetici Paneline Geçildi.')
@@ -138,7 +140,7 @@ class login_Window(QMainWindow):
             self.startWindow.show()
             self.close()
         
-        
+    #Başarısız giriş fonksiyonu
     def wrong_login(self):
         msg = QMessageBox()
         msg.setWindowTitle("Giriş Başarısız!")
@@ -149,7 +151,7 @@ class login_Window(QMainWindow):
         msg.setWindowIcon(self.icon)
         x = msg.exec_()
     
-        
+    #İsimlendirme fonksiyonu
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "ZBY Kütüphane Sistemi - Giriş Sayfası"))

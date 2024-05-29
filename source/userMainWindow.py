@@ -106,7 +106,6 @@ class user_Main_Window(QMainWindow):
         self.booksFrame.hide()
         
         #Kitaplarım Frame
-        
         self.myBooksFrame = QtWidgets.QFrame(self.centralwidget)
         self.myBooksFrame.setEnabled(True)
         self.myBooksFrame.setGeometry(QtCore.QRect(180, 20, 591, 511))
@@ -144,8 +143,6 @@ class user_Main_Window(QMainWindow):
         item = QtWidgets.QTableWidgetItem()
         self.myBooksTable.setItem(0, 2, item)
         self.myBooksTable.setEditTriggers(QTableWidget.NoEditTriggers)
-        
-        
         
         self.leaveBookButton = QtWidgets.QPushButton(self.myBooksFrame)
         self.leaveBookButton.setGeometry(QtCore.QRect(470, 470, 111, 31))

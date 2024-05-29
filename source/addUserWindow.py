@@ -68,16 +68,31 @@ class add_User_Window(QMainWindow):
         self.passwordEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.passwordEdit.setGeometry(QtCore.QRect(213, 218, 241, 22))
         self.passwordEdit.setObjectName("passwordEdit")
+        self.showPasswordButton = QtWidgets.QPushButton(self.centralwidget)
+        self.showPasswordButton.setGeometry(QtCore.QRect(455, 218, 28, 28))
+        self.showPasswordButton.setObjectName("showPasswordButton")
+        font2 = QtGui.QFont()
+        font2.setPointSize(10)
+        self.showPasswordButton.setText("👁️")
+        self.showPasswordButton.setFont(font2)
         self.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
         
         self.addButton.clicked.connect(self.addClick)
+        self.showPasswordButton.clicked.connect(self.togglePasswordVisibility)
         
     #Ekleme butonu fonksiyonu
     def addClick(self):
         print('Ekleme Butonuna Tıklandı.')
+        
+    #Şifre göster butonu fonksiyonu
+    def togglePasswordVisibility(self):
+        if self.passwordEdit.echoMode() == QtWidgets.QLineEdit.Password:
+            self.passwordEdit.setEchoMode(QtWidgets.QLineEdit.Normal)
+        else:
+            self.passwordEdit.setEchoMode(QtWidgets.QLineEdit.Password)
 
     def retranslateUi(self, userAddWindow):
         _translate = QtCore.QCoreApplication.translate

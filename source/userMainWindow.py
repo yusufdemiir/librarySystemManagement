@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtWidgets import QMainWindow,QApplication,QTableWidget
+from PyQt5.QtWidgets import QMainWindow,QApplication,QTableWidget,QMessageBox
 from PyQt5.QtGui import QIcon, QPixmap
 
 class user_Main_Window(QMainWindow):
@@ -81,6 +81,9 @@ class user_Main_Window(QMainWindow):
         self.takeBookButton = QtWidgets.QPushButton(self.booksFrame)
         self.takeBookButton.setGeometry(QtCore.QRect(470, 470, 111, 31))
         self.takeBookButton.setObjectName("takeBookButton")
+        self.reservationButton = QtWidgets.QPushButton(self.booksFrame)
+        self.reservationButton.setGeometry(QtCore.QRect(359, 470, 111, 31))
+        self.reservationButton.setObjectName('reservationButton')
         self.widget = QtWidgets.QWidget(self.booksFrame)
         self.widget.setGeometry(QtCore.QRect(230, 10, 351, 87))
         self.widget.setObjectName("widget")
@@ -103,6 +106,9 @@ class user_Main_Window(QMainWindow):
         self.searchButton.setIcon(self.icon)
         self.searchButton.setObjectName("searchButton")
         self.horizontalLayout.addWidget(self.searchButton)
+        self.showAll = QtWidgets.QPushButton(self.booksFrame)
+        self.showAll.setText('Hepsini Göster')
+        self.showAll.setGeometry(QtCore.QRect(2, 470, 90, 31,))
         self.booksFrame.hide()
         
         #Kitaplarım Frame
@@ -162,14 +168,63 @@ class user_Main_Window(QMainWindow):
         self.lineEdit2 = QtWidgets.QLineEdit(self.widget)
         self.lineEdit2.setObjectName("lineEdit2")
         self.horizontalLayout.addWidget(self.lineEdit2)
-        self.searchButton2 = QtWidgets.QPushButton(self.widget)
-        self.searchButton2.setText("")
+        self.myBooksSearchButton = QtWidgets.QPushButton(self.widget)
+        self.myBooksSearchButton.setText("")
         self.icon = QtGui.QIcon()
         self.icon.addPixmap(QtGui.QPixmap('icons/search-icon.jpg'))
-        self.searchButton2.setIcon(self.icon)
-        self.searchButton2.setObjectName("searchButton")
-        self.horizontalLayout.addWidget(self.searchButton2)
+        self.myBooksSearchButton.setIcon(self.icon)
+        self.myBooksSearchButton.setObjectName("myBooksButton")
+        self.horizontalLayout.addWidget(self.myBooksSearchButton)
+        self.showAll2 = QtWidgets.QPushButton(self.myBooksFrame)
+        self.showAll2.setText('Hepsini Göster')
+        self.showAll2.setGeometry(QtCore.QRect(2, 470, 90, 31,))
         self.myBooksFrame.hide()
+        
+        #Rezervasyonlarım Frame
+        self.myReservationsFrame = QtWidgets.QFrame(self.centralwidget)
+        self.myReservationsFrame.setEnabled(True)
+        self.myReservationsFrame.setGeometry(QtCore.QRect(180, 20, 591, 511))
+        self.myReservationsFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.myReservationsFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.myReservationsFrame.setObjectName("myBooksFrame")
+        self.myReservationsLabel = QtWidgets.QLabel(self.myReservationsFrame)
+        self.booksLabel.setGeometry(QtCore.QRect(20, 0, 250, 100))
+        font = QtGui.QFont()
+        font.setFamily("Yu Gothic")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.myReservationsLabel.setFont(font)
+        self.myReservationsLabel.setObjectName("welcomeLabel")
+        self.myReservationsLabel.setText('Rezervasyonlarım')
+        self.myReservationsTable = QtWidgets.QTableWidget(self.myReservationsFrame)
+        self.myReservationsTable.setGeometry(QtCore.QRect(2, 75, 571, 379))
+        self.myReservationsTable.setObjectName("myBooksTable")
+        
+        self.myReservationsTable.setColumnCount(2)
+        self.myReservationsTable.setRowCount(1)
+        item = QtWidgets.QTableWidgetItem()
+        item.setText('1')
+        self.myReservationsTable.setVerticalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setText('Kitap İsmi')
+        self.myReservationsTable.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setText('Sıra Sayısı')
+        self.myReservationsTable.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setText('Veronika Ölmek İstiyor')
+        self.myReservationsTable.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setText('3')
+        self.myReservationsTable.setItem(0, 1, item)
+        self.myReservationsTable.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.cancelReservationButton = QtWidgets.QPushButton(self.myReservationsFrame)
+        self.cancelReservationButton.setGeometry(QtCore.QRect(435, 470, 145, 31))
+        self.cancelReservationButton.setObjectName("cancelReservationButton")
+        self.cancelReservationButton.setText('Rezervasyonu İptal Et')
+        self.myReservationsFrame.hide()
         
         #Profil Frame
         self.profileFrame = QtWidgets.QFrame(self.centralwidget)
@@ -278,6 +333,9 @@ class user_Main_Window(QMainWindow):
         self.myBooksButton = QtWidgets.QPushButton(self.widget)
         self.myBooksButton.setObjectName("myBooksButton")
         self.verticalLayout.addWidget(self.myBooksButton)
+        self.myReservations = QtWidgets.QPushButton(self.widget)
+        self.myReservations.setObjectName('myReservations')
+        self.verticalLayout.addWidget(self.myReservations)
         self.profileButton = QtWidgets.QPushButton(self.widget)
         self.profileButton.setObjectName("profileButton")
         self.verticalLayout.addWidget(self.profileButton)
@@ -307,6 +365,13 @@ class user_Main_Window(QMainWindow):
         self.profileSaveButton.clicked.connect(self.profileSaveClick)
         self.takeBookButton.clicked.connect(self.takeBookClick)
         self.leaveBookButton.clicked.connect(self.leaveBookClick)
+        self.reservationButton.clicked.connect(self.reservationClick)
+        self.searchButton.clicked.connect(self.booksSearchClick)
+        self.myBooksSearchButton.clicked.connect(self.myBooksSearchClick)
+        self.showAll.clicked.connect(self.showAllClick)
+        self.showAll2.clicked.connect(self.showAllClick2)
+        self.myReservations.clicked.connect(self.myReservationsClick)
+        self.cancelReservationButton.clicked.connect(self.cancelReservationClick)
         self.exitButton.clicked.connect(QApplication.instance().quit)
     
     
@@ -316,6 +381,7 @@ class user_Main_Window(QMainWindow):
         self.welcomeFrame.hide()
         self.myBooksFrame.hide()
         self.profileFrame.hide()
+        self.myReservationsFrame.hide()
         self.booksFrame.show()
         
     #Kitaplarım butonu fonksiyonu:
@@ -324,7 +390,17 @@ class user_Main_Window(QMainWindow):
         self.welcomeFrame.hide()
         self.booksFrame.hide()
         self.profileFrame.hide()
+        self.myReservationsFrame.hide()
         self.myBooksFrame.show()
+        
+    #Rezervasyonlarım butonu fonksiyonu:
+    def myReservationsClick(self):
+        print('Rezervasyonlarım Butonuna Tıklandı.')
+        self.welcomeFrame.hide()
+        self.booksFrame.hide()
+        self.myBooksFrame.hide()
+        self.profileFrame.hide()
+        self.myReservationsFrame.show()
     
     #Profil butonu fonksiyonu:
     def profileClick(self):
@@ -332,6 +408,7 @@ class user_Main_Window(QMainWindow):
         self.welcomeFrame.hide()
         self.booksFrame.hide()
         self.myBooksFrame.hide()
+        self.myReservationsFrame.hide()
         self.profileFrame.show()
         
     #Çıkış yapma butonu fonksiyonu
@@ -368,8 +445,59 @@ class user_Main_Window(QMainWindow):
     #Kitap bırakma butonu fonksiyonu
     def leaveBookClick(self):
         print('Kitap Bırakma Butonun Tıklandı.')
-
-
+        
+    #Rezervasyon butonu fonksyionu
+    def reservationClick(self):
+        print('Rezervasyon Butonuna Tıklandı.')
+        msg = QMessageBox()
+        msg.setWindowTitle('Rezervasyon')
+        count = 3
+        counT = str(count)
+        text = 'Rezervasyonunuz oluşturuldu. Sıranız: ' + counT
+        msg.setText(text)
+        msg.setIcon(QMessageBox.Information)
+        self.icon = QtGui.QIcon()
+        self.icon.addPixmap(QtGui.QPixmap('icons/checkMark.jpg'))
+        msg.setWindowIcon(self.icon)
+        x = msg.exec_()
+        
+    #Rezervasyon iptal butonu fonksiyonu
+    def cancelReservationClick(self):
+        print('Rezervasyonu İptal Etme Butonuna Tıklandı.')
+        
+        
+        
+    #Kitaplar Arama Algoritması:
+    def booksSearchClick(self):
+        for i in range(self.booksTable.rowCount()):
+            match = False
+            for j in range(self.booksTable.columnCount()):
+                item = self.booksTable.item(i, j)
+                if item and self.lineEdit.text().lower() in item.text().lower():
+                    match = True
+                    break
+            self.booksTable.setRowHidden(i, not match)
+    
+    #Kitaplarım Arama Algoritması:
+    def myBooksSearchClick(self):
+        for i in range(self.myBooksTable.rowCount()):
+            match = False
+            for j in range(self.myBooksTable.columnCount()):
+                item = self.myBooksTable.item(i, j)
+                if item and self.lineEdit2.text().lower() in item.text().lower():
+                    match = True
+                    break
+            self.myBooksTable.setRowHidden(i, not match)
+        
+    #Hepsini Göster Butonu Fonksiyonu
+    def showAllClick(self):
+        for i in range(self.booksTable.rowCount()):
+            self.booksTable.setRowHidden(i, False)
+    def showAllClick2(self):
+        for i in range(self.myBooksTable.rowCount()):
+            self.myBooksTable.setRowHidden(i, False)
+            
+        
     #İsimlendirme Fonksiyonu
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
@@ -379,6 +507,7 @@ class user_Main_Window(QMainWindow):
         #Menü Bar
         self.booksButton.setText(_translate("MainWindow", "Kitaplar"))
         self.myBooksButton.setText(_translate("MainWindow", "Kitaplarım"))
+        self.myReservations.setText(_translate('MainWindow', 'Rezervasyonlarım'))
         self.profileButton.setText(_translate("MainWindow", "Profil"))
         self.logoutButton.setText(_translate("MainWindow", "Çıkış Yap"))
         self.exitButton.setText(_translate("MainWindow", "Uygulamayı Kapat"))
@@ -387,6 +516,7 @@ class user_Main_Window(QMainWindow):
         self.takeBookButton.setText(_translate("MainWindow", "Kitabı Al"))
         self.searchLabel.setText(_translate("MainWindow", "Arama: "))
         self.booksLabel.setText(_translate('MainWindow', 'Kitaplar'))
+        self.reservationButton.setText(_translate('MainWindow', 'Rezerve Et'))
         
         #Kitaplarım
         self.leaveBookButton.setText(_translate("MainWindow", "Kitabı Bırak"))

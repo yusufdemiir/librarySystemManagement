@@ -43,15 +43,11 @@ class add_Book_Window(QMainWindow):
         self.barkodNoLabel = QtWidgets.QLabel(self.centralwidget)
         self.barkodNoLabel.setGeometry(QtCore.QRect(97, 178, 106, 16))
         self.barkodNoLabel.setObjectName("barkodNoLabel")
-        self.dateLabel = QtWidgets.QLabel(self.centralwidget)
-        self.dateLabel.setGeometry(QtCore.QRect(97, 207, 106, 16))
-        self.dateLabel.setObjectName("dateLabel")
+       
         self.barkodNoEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.barkodNoEdit.setGeometry(QtCore.QRect(210, 178, 241, 22))
         self.barkodNoEdit.setObjectName("barkodNoEdit")
-        self.dateEdit = QtWidgets.QDateEdit(self.centralwidget)
-        self.dateEdit.setGeometry(QtCore.QRect(210, 207, 241, 22))
-        self.dateEdit.setObjectName("dateEdit")
+        
         self.authorEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.authorEdit.setGeometry(QtCore.QRect(210, 62, 241, 22))
         self.authorEdit.setObjectName("authorEdit")
@@ -86,4 +82,3 @@ class add_Book_Window(QMainWindow):
         self.numberLabel.setText(_translate("userAddWindow", "Adet:"))
         self.summaryLabel.setText(_translate("userAddWindow", "Özet:"))
         self.barkodNoLabel.setText(_translate("userAddWindow", "Barkod No:"))
-        self.dateLabel.setText(_translate("userAddWindow", "Eklenme Tarihi:"))

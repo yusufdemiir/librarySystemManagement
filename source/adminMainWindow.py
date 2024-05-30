@@ -107,6 +107,9 @@ class admin_Main_Window(QMainWindow):
         self.searchButton.setIcon(self.icon)
         self.searchButton.setObjectName("searchButton")
         self.horizontalLayout.addWidget(self.searchButton)
+        self.showAll = QtWidgets.QPushButton(self.booksFrame)
+        self.showAll.setText('Hepsini Göster')
+        self.showAll.setGeometry(QtCore.QRect(2, 470, 90, 31,))
         self.booksFrame.hide()
         
        
@@ -155,6 +158,9 @@ class admin_Main_Window(QMainWindow):
         self.deleteUserButton = QtWidgets.QPushButton(self.userManagementFrame)
         self.deleteUserButton.setGeometry(QtCore.QRect(470, 470, 111, 31))
         self.deleteUserButton.setObjectName('deleteUserButton')
+        self.showInfoButton = QtWidgets.QPushButton(self.userManagementFrame)
+        self.showInfoButton.setGeometry(QtCore.QRect(248, 470, 111, 31))
+        self.showInfoButton.setObjectName("showInfoButton")
         self.widget = QtWidgets.QWidget(self.userManagementFrame)
         self.widget.setGeometry(QtCore.QRect(230, 10, 351, 87))
         self.widget.setObjectName("widget")
@@ -177,6 +183,9 @@ class admin_Main_Window(QMainWindow):
         self.searchButton2.setIcon(self.icon)
         self.searchButton2.setObjectName("searchButton")
         self.horizontalLayout.addWidget(self.searchButton2)
+        self.showAll2 = QtWidgets.QPushButton(self.userManagementFrame)
+        self.showAll2.setText('Hepsini Göster')
+        self.showAll2.setGeometry(QtCore.QRect(2, 470, 90, 31,))
         self.userManagementFrame.hide()
         
         #Profil Frame
@@ -317,6 +326,11 @@ class admin_Main_Window(QMainWindow):
         self.deleteBookButton.clicked.connect(self.deleteBookClick)
         self.addUserButton.clicked.connect(self.addUserClick)
         self.deleteUserButton.clicked.connect(self.deleteUserClick)
+        self.showInfoButton.clicked.connect(self.showInfoClick)
+        self.searchButton.clicked.connect(self.booksSearchClick)
+        self.searchButton2.clicked.connect(self.myBooksSearchClick)
+        self.showAll.clicked.connect(self.showAllClick)
+        self.showAll2.clicked.connect(self.showAllClick2)
         self.exitButton.clicked.connect(QApplication.instance().quit)
 
     
@@ -394,6 +408,42 @@ class admin_Main_Window(QMainWindow):
     def deleteUserClick(self):
         print('Kullanıcı Silme Butonuna Tıklandı')
 
+    #Bilgi gösterme butonu fonksiyonu
+    def showInfoClick(self):
+        print('Bilgi Gösterme Butonuna Tıklandı.')
+        from showInfo import show_Info
+        self.start = show_Info()
+        self.start.show()
+        
+    #Kitaplar Arama Algoritması:
+    def booksSearchClick(self):
+        for i in range(self.booksTable.rowCount()):
+            match = False
+            for j in range(self.booksTable.columnCount()):
+                item = self.booksTable.item(i, j)
+                if item and self.lineEdit.text().lower() in item.text().lower():
+                    match = True
+                    break
+            self.booksTable.setRowHidden(i, not match)
+    
+    #Kitaplarım Arama Algoritması:
+    def myBooksSearchClick(self):
+        for i in range(self.userTable.rowCount()):
+            match = False
+            for j in range(self.userTable.columnCount()):
+                item = self.userTable.item(i, j)
+                if item and self.lineEdit2.text().lower() in item.text().lower():
+                    match = True
+                    break
+            self.userTable.setRowHidden(i, not match)
+        
+    #Hepsini Göster Butonu Fonksiyonu
+    def showAllClick(self):
+        for i in range(self.booksTable.rowCount()):
+            self.booksTable.setRowHidden(i, False)
+    def showAllClick2(self):
+        for i in range(self.userTable.rowCount()):
+            self.userTable.setRowHidden(i, False)
 
 
     #İsimlendirme Fonksiyonu
@@ -420,7 +470,7 @@ class admin_Main_Window(QMainWindow):
         self.deleteUserButton.setText(_translate('MainWindow', 'Kullanıcı Sil'))
         self.searchLabel2.setText(_translate("MainWindow", "Arama: "))
         self.userManagementLabel.setText(_translate('MainWindow', 'Kayıtlı Kullanıcılar'))
-        
+        self.showInfoButton.setText(_translate('MainWindow', 'Bilgileri Göster'))
         item = self.booksTable.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.booksTable.horizontalHeaderItem(0)

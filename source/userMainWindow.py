@@ -188,7 +188,7 @@ class user_Main_Window(QMainWindow):
         self.myReservationsFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.myReservationsFrame.setObjectName("myBooksFrame")
         self.myReservationsLabel = QtWidgets.QLabel(self.myReservationsFrame)
-        self.booksLabel.setGeometry(QtCore.QRect(20, 0, 250, 100))
+        self.myReservationsLabel.setGeometry(QtCore.QRect(20, 0, 300, 100))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic")
         font.setPointSize(20)

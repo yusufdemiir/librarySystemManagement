@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5.QtGui import QPixmap
 from userMainWindow import user_Main_Window
 from adminMainWindow import admin_Main_Window
+from registerWindow import register_Window
 class login_Window(QMainWindow):
     
     def __init__(self):
@@ -22,6 +23,13 @@ class login_Window(QMainWindow):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.enterButton.setFont(font)
+        
+        self.registerButton = QtWidgets.QPushButton(self.centralwidget)
+        self.registerButton.setGeometry(QtCore.QRect(480, 555, 200, 50))
+        self.registerButton.setText('Kayıt Ol')
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.registerButton.setFont(font)
         
         
         self.showPasswordButton = QtWidgets.QPushButton(self.centralwidget)
@@ -100,6 +108,7 @@ class login_Window(QMainWindow):
         self.userRadioButton.clicked.connect(self.userButtonHandler)
         self.adminRadioButton.clicked.connect(self.adminButtonHandler)
         self.showPasswordButton.clicked.connect(self.togglePasswordVisibility)
+        self.registerButton.clicked.connect(self.registerButtonClick)
         
     #Giriş butonu fonksiyonu
     def enterButtonClickHandler(self):
@@ -139,6 +148,12 @@ class login_Window(QMainWindow):
             self.startWindow = user_Main_Window()
             self.startWindow.show()
             self.close()
+            
+    #Kayıt olma butonu fonksiyonu
+    def registerButtonClick(self):
+        print('Kayıt Olma Butonuna Tıklandı.')
+        self.startWindow = register_Window()
+        self.startWindow.show()
         
     #Başarısız giriş fonksiyonu
     def wrong_login(self):

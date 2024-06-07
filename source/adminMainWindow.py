@@ -110,6 +110,9 @@ class admin_Main_Window(QMainWindow):
         self.showAll = QtWidgets.QPushButton(self.booksFrame)
         self.showAll.setText('Hepsini Göster')
         self.showAll.setGeometry(QtCore.QRect(2, 470, 90, 31,))
+        self.showDetails = QtWidgets.QPushButton(self.booksFrame)
+        self.showDetails.setText('Ayrıntıları Göster')
+        self.showDetails.setGeometry(QtCore.QRect(93, 470, 110, 31,))
         self.booksFrame.hide()
         
        
@@ -186,6 +189,9 @@ class admin_Main_Window(QMainWindow):
         self.showAll2 = QtWidgets.QPushButton(self.userManagementFrame)
         self.showAll2.setText('Hepsini Göster')
         self.showAll2.setGeometry(QtCore.QRect(2, 470, 90, 31,))
+        self.showDetails2 = QtWidgets.QPushButton(self.userManagementFrame)
+        self.showDetails2.setText('Ayrıntıları Göster')
+        self.showDetails2.setGeometry(QtCore.QRect(93, 470, 110, 31,))
         self.userManagementFrame.hide()
         
         #Rezervasyonlarım Frame
@@ -382,6 +388,8 @@ class admin_Main_Window(QMainWindow):
         self.searchButton2.clicked.connect(self.myBooksSearchClick)
         self.showAll.clicked.connect(self.showAllClick)
         self.showAll2.clicked.connect(self.showAllClick2)
+        self.showDetails.clicked.connect(self.showDetailsClick)
+        self.showDetails2.clicked.connect(self.showDetailsClick2)
         self.reservationsButton.clicked.connect(self.reservationsButtonClick)
         self.exitButton.clicked.connect(QApplication.instance().quit)
 
@@ -499,6 +507,12 @@ class admin_Main_Window(QMainWindow):
     def showAllClick2(self):
         for i in range(self.userTable.rowCount()):
             self.userTable.setRowHidden(i, False)
+    
+    #Detay Gösterme Butonu Fonksiyonu
+    def showDetailsClick(self):
+        pass
+    def showDetailsClick2(self):
+        pass
     
     #Rezervasyonlar Butonu Fonksiyonu
     def reservationsButtonClick(self):

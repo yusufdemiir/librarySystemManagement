@@ -189,9 +189,6 @@ class admin_Main_Window(QMainWindow):
         self.showAll2 = QtWidgets.QPushButton(self.userManagementFrame)
         self.showAll2.setText('Hepsini Göster')
         self.showAll2.setGeometry(QtCore.QRect(2, 470, 90, 31,))
-        self.showDetails2 = QtWidgets.QPushButton(self.userManagementFrame)
-        self.showDetails2.setText('Ayrıntıları Göster')
-        self.showDetails2.setGeometry(QtCore.QRect(93, 470, 110, 31,))
         self.userManagementFrame.hide()
         
         #Rezervasyonlarım Frame
@@ -323,10 +320,18 @@ class admin_Main_Window(QMainWindow):
         self.birthLabel = QtWidgets.QLabel(self.widget)
         self.birthLabel.setObjectName("birthLable")
         self.profileLayout.addWidget(self.birthLabel, 4, 0, 1, 1)
-        self.birthEdit = QtWidgets.QDateEdit(self.widget)
+        self.birthEdit = QtWidgets.QLineEdit(self.widget)
         self.birthEdit.setObjectName("birthEdit")
         self.birthEdit.setReadOnly(True)
+        self.birthEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.profileLayout.addWidget(self.birthEdit, 4, 1, 1, 1)
+        self.showPasswordButton = QtWidgets.QPushButton(self.profileFrame)
+        self.showPasswordButton.setObjectName("showPasswordButton")
+        font2 = QtGui.QFont()
+        font2.setPointSize(10)
+        self.showPasswordButton.setText("👁️")
+        self.showPasswordButton.setFont(font2)
+        self.showPasswordButton.setGeometry(460 ,220,28,28)
         self.profileFrame.hide()
         
         
@@ -389,8 +394,8 @@ class admin_Main_Window(QMainWindow):
         self.showAll.clicked.connect(self.showAllClick)
         self.showAll2.clicked.connect(self.showAllClick2)
         self.showDetails.clicked.connect(self.showDetailsClick)
-        self.showDetails2.clicked.connect(self.showDetailsClick2)
         self.reservationsButton.clicked.connect(self.reservationsButtonClick)
+        self.showPasswordButton.clicked.connect(self.togglePasswordVisibility)
         self.exitButton.clicked.connect(QApplication.instance().quit)
 
     
@@ -438,6 +443,7 @@ class admin_Main_Window(QMainWindow):
         self.surnameEditLine.setReadOnly(False)
         self.phoneNoEditLine.setReadOnly(False)
         self.addressEdit.setReadOnly(False)
+        self.birthEdit.setReadOnly(False)
         self.checkLabel.hide()
     
     #Kaydetme butonu fonksiyonu
@@ -447,6 +453,7 @@ class admin_Main_Window(QMainWindow):
         self.surnameEditLine.setReadOnly(True)
         self.phoneNoEditLine.setReadOnly(True)
         self.addressEdit.setReadOnly(True)
+        self.birthEdit.setReadOnly(True)
         self.checkLabel.show()
         
     #Kitap ekleme butonu fonksiyonu
@@ -510,9 +517,9 @@ class admin_Main_Window(QMainWindow):
     
     #Detay Gösterme Butonu Fonksiyonu
     def showDetailsClick(self):
-        pass
-    def showDetailsClick2(self):
-        pass
+        from showInfo import show_Info
+        self.start = show_Info()
+        self.start.show()
     
     #Rezervasyonlar Butonu Fonksiyonu
     def reservationsButtonClick(self):
@@ -522,6 +529,13 @@ class admin_Main_Window(QMainWindow):
         self.userManagementFrame.hide()
         self.profileFrame.hide()
         self.myReservationsFrame.show()
+    
+    #Şifre göster butonu fonksiyonu
+    def togglePasswordVisibility(self):
+        if self.birthEdit.echoMode() == QtWidgets.QLineEdit.Password:
+            self.birthEdit.setEchoMode(QtWidgets.QLineEdit.Normal)
+        else:
+            self.birthEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         
 
 
@@ -596,5 +610,5 @@ class admin_Main_Window(QMainWindow):
         self.surnameLabel.setText(_translate("MainWindow", "Soyad:"))
         self.nameLabel.setText(_translate("MainWindow", "İsim:"))
         self.idLabel.setText(_translate("MainWindow", "ID :"))
-        self.birthLabel.setText(_translate("MainWindow", "Doğum Tarihi:"))
+        self.birthLabel.setText(_translate("MainWindow", "Şifre:"))
         self.profileSaveButton.setText(_translate('MainWindow', 'Kaydet'))

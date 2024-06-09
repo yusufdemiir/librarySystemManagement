@@ -16,13 +16,8 @@ class Database:
                 password=self.password,
                 database=self.database
             )
-            print("Baglandi")
+            print("Veri Tabanına Bağlandı")
             return self.connection
         except mysql.connector.Error as err:
             print(err)
             return False
-
-    def close_connection(self):
-        if self.connection and self.connection.is_connected():
-            self.connection.close()
-            print("Veri tabanı bağlantısı kapatıldı.")

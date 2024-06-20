@@ -5,6 +5,6 @@ CREATE TABLE reservations(
     reserved_book_id INT,
     CONSTRAINT fk_reserved_book FOREIGN KEY (reserved_book_id) REFERENCES book_pool(book_id),
     reserve_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    status_ ENUM("Beklemede", "Uygun") NOT NULL DEFAULT "Beklemede"
+    status_ ENUM("Beklemede", "Uygun") NOT NULL DEFAULT "Beklemede",
     queue_no INT
 );
